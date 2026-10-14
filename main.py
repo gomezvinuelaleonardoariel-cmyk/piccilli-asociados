@@ -14,7 +14,7 @@ import random
 from datetime import datetime
 
 app = Flask(__name__)
-# Definimos una clave secreta obligatoria para el manejo de sesiones en Flask
+# Clave secreta obligatoria para el manejo de sesiones en Flask
 app.secret_key = "clave_secreta_super_segura_piccilli_2026"
 
 MONGO_URI = "mongodb+srv://gomezvinuelaleonardoariel_db_user:cXIe9PtVYBxdOO4V@dbproyectofinal.kwksir2.mongodb.net/?appName=DBProyectoFinal"
@@ -298,6 +298,18 @@ def eliminar_expediente(id):
 
     coleccion_expedientes.delete_one({"_id": ObjectId(id)})
     return redirect(url_for("panel_personal"))
+
+
+# ELIMINAR CLIENTE Y SUS CASOS ASOCIADOS
+@app.route("/eliminar-cliente/<dni>", methods=["POST"])
+def eliminar_cliente(dni):
+    if "user_rol" not in session or session["user_rol"] != "personal":
+        return redirect(url_for("login_personal"))
+
+    coleccion_usuarios.delete_one({"dni": dni, "rol": "cliente"})
+    coleccion_expedientes.delete_many({"cliente_dni": dni})
+
+    return redirect(url_for("listar_clientes"))
 
 
 # RUTA ÚNICA DE LOGIN PARA EL PERSONAL INTERNO (Secretaria o Abogados)

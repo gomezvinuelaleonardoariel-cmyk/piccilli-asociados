@@ -42,10 +42,17 @@
                 <p class="text-secondary mb-0">DNI: {{ cliente.dni }} | Acceso a plataforma en modo lectura activo.</p>
             </div>
             <div class="col-lg-5 d-flex justify-content-lg-end mt-3 mt-lg-0">
-                <!-- Botón solicitado en el caso de uso -->
-                <a href="/registro-caso/{{ cliente.dni }}" class="btn btn-dorado-outline">
-                    <i class="bi bi-journal-plus me-1"></i> Nuevo caso interno
-                </a>
+                <!-- Contenedor flex para alinear ambos botones juntos a la derecha -->
+                <div class="d-flex gap-2">
+                    <a href="/registro-caso/{{ cliente.dni }}" class="btn btn-dorado-outline">
+                        <i class="bi bi-journal-plus me-1"></i> Nuevo caso interno
+                    </a>
+                    <form action="/eliminar-cliente/{{ cliente.dni }}" method="POST" onsubmit="return confirm('¿Está seguro de eliminar este cliente y todos sus casos asociados?');" style="display:inline;">
+                        <button type="submit" class="btn btn-outline-danger px-3 fw-semibold" style="border-radius: var(--radius);">
+                            <i class="bi bi-trash me-1"></i> Eliminar Cliente
+                        </button>
+                    </form>
+                </div>
             </div>
         </div>
 
@@ -105,7 +112,6 @@
     <!-- Bootstrap 5.3 JS Bundle -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        // Pop-up de confirmación solicitado en el caso de uso
         const urlParams = new URLSearchParams(window.location.search);
         if (urlParams.get('alerta') === 'vencimiento_ok') {
             alert("Nueva fecha de vencimiento cargada exitosamente");
