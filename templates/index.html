@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Piccilli & Asociados | Sistema de Gestión Jurídica</title>
+
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+        <style>
+            :root {
+                --bg: #3f3d38;
+                --surface: #22262b;
+                --surface-2: #2b3036;
+                --border: #3d434a;
+                --text: #ecebe6;
+                --muted: #a8a8a0;
+                --accent: #b8985a;
+                --accent-hover: #c9aa6e;
+                --accent-text: #1c1a16;
+                --radius: 8px;
+            }
+
+            .abogado-borde {
+                object-fit: cover;
+                max-height: 420px;
+                width: 100%;
+                border: 3px solid var(--accent) !important;
+            }
+
+            body {
+                background-color: var(--bg);
+                color: var(--text);
+                font-family: 'Inter', system-ui, sans-serif;
+                min-height: 100vh;
+                display: flex;
+                flex-direction: column;
+                margin: 0;
+            }
+
+            /* Barra superior */
+            .topbar {
+                background-color: var(--surface);
+                border-bottom: 1px solid var(--border);
+                box-shadow: 0 2px 10px rgba(0, 0, 0, .25);
+            }
+            .topbar .brand {
+                font-family: 'Cormorant Garamond', Georgia, serif;
+                font-weight: 600;
+                font-size: 1.4rem;
+                letter-spacing: .02em;
+                color: var(--text);
+                text-decoration: none;
+            }
+
+            /* Hero */
+            .hero {
+                flex: 1;
+                display: grid;
+                place-items: center;
+                padding: 3rem 0;
+            }
+            .hero h1 {
+                font-family: 'Cormorant Garamond', Georgia, serif;
+                font-weight: 600;
+                font-size: clamp(2.2rem, 6vw, 3.5rem);
+                letter-spacing: .02em;
+                line-height: 1.15;
+            }
+            .text-soft { color: var(--muted); }
+
+            /* Botones */
+            .btn-accent {
+                background-color: var(--accent);
+                border-color: var(--accent);
+                color: var(--accent-text);
+                font-weight: 600;
+                border-radius: var(--radius);
+                transition: background-color .15s ease, transform .05s ease;
+            }
+            .btn-accent:hover,
+            .btn-accent:focus-visible {
+                background-color: var(--accent-hover);
+                border-color: var(--accent-hover);
+                color: var(--accent-text);
+            }
+            .btn-accent:active { transform: translateY(1px); }
+
+            .btn-outline-soft {
+                border: 1px solid var(--accent);
+                color: var(--accent);
+                border-radius: var(--radius);
+                font-weight: 500;
+            }
+            .btn-outline-soft:hover {
+                background-color: var(--accent);
+                color: var(--accent-text);
+            }
+
+            /* Pie */
+            footer {
+                border-top: 1px solid var(--border);
+                color: var(--muted);
+                font-size: .85rem;
+            }
+        </style>
+    </head>
+<body data-bs-theme="dark">
+
+    <!-- Barra de navegación -->
+    <header class="topbar">
+        <div class="container-fluid px-4 py-3 d-flex align-items-center justify-content-between">
+            <a class="brand" href="/">Piccilli &amp; Asociados</a>
+            <a href="/profesionales" class="btn btn-sm btn-outline-soft px-3">
+                <i class="bi bi-people me-1"></i>Profesionales
+            </a>
+        </div>
+    </header>
+
+    <!-- Contenido principal con la foto de los abogados -->
+    <main class="hero">
+        <div class="container">
+            <div class="row align-items-center g-5">
+                <!-- Columna izquierda: Títulos y botón de acceso -->
+                    <div class="col-lg-6 text-center">
+                        <div class="mb-3">
+                            <img src="/logo.jpg" alt="Logo Piccilli & Asociados"
+                                 class="rounded-circle shadow-sm border border-2"
+                                 style="width: 84px; height: 84px; object-fit: cover; border-color: var(--accent) !important;">
+                        </div>
+
+                    <h1 class="mb-3">Piccilli &amp; Asociados</h1>
+                    <p class="lead text-soft mb-4">Sistema de Gestión Jurídica. Excelencia, compromiso y defensa profesional a su alcance.</p>
+
+                        <button type="button" class="btn btn-lg btn-accent px-5 py-3 shadow-sm" data-bs-toggle="modal" data-bs-target="#modalAcceso">
+                            Acceder <i class="bi bi-arrow-right ms-2"></i>
+                        </button>
+                </div>
+
+                <!-- Columna derecha: Imagen de los abogados -->
+                <div class="col-lg-6">
+                    <div class="position-relative">
+                        <img src="/abogados.jpg" alt="Abogados del Estudio" class="img-fluid rounded-4 shadow-lg abogado-borde">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="text-center py-4">
+        <div class="container">
+            <!-- Redes Sociales e Contactos -->
+            <div class="mb-3 d-flex justify-content-center gap-3 fs-5">
+                <a href="https://wa.me/TU_NUMERO" target="_blank" class="text-soft text-decoration-none" title="WhatsApp">
+                    <i class="bi bi-whatsapp"></i>
+                </a>
+                <a href="mailto:tu-correo@estudio.com" class="text-soft text-decoration-none" title="Correo Electrónico">
+                    <i class="bi bi-envelope-fill"></i>
+                </a>
+                <a href="https://instagram.com/TU_USUARIO" target="_blank" class="text-soft text-decoration-none" title="Instagram">
+                    <i class="bi bi-instagram"></i>
+                </a>
+                <a href="https://facebook.com/TU_USUARIO" target="_blank" class="text-soft text-decoration-none" title="Facebook">
+                    <i class="bi bi-facebook"></i>
+                </a>
+                <a href="https://tiktok.com/@TU_USUARIO" target="_blank" class="text-soft text-decoration-none" title="TikTok">
+                    <i class="bi bi-tiktok"></i>
+                </a>
+            </div>
+
+            <!-- Texto de Copyright -->
+            <div class="text-soft small">
+                &copy; <span id="year"></span> Piccilli &amp; Asociados &middot; Acceso exclusivo para el personal autorizado
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
+
+    <!-- Bootstrap JS (Necesario para que el modal funcione) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Modal de Selección de Acceso -->
+    <div class="modal fade" id="modalAcceso" tabindex="-1" aria-labelledby="modalAccesoLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content" style="background-color: var(--surface); border: 1px solid var(--border); color: var(--text);">
+                <div class="modal-header border-bottom border-secondary">
+                    <h5 class="modal-title serif" id="modalAccesoLabel" style="color: var(--accent);">Seleccione su tipo de acceso</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body p-4 text-center">
+                    <p class="text-soft mb-4">Por favor, indique si desea ingresar como miembro del estudio o como cliente para consultar sus expedientes.</p>
+
+                    <div class="d-grid gap-3">
+                        <!-- Botón para Personal -->
+                        <a href="/login-personal" class="btn btn-accent py-3 d-flex align-items-center justify-content-center gap-2">
+                            <i class="bi bi-shield-lock-fill fs-5"></i>
+                            <span class="fw-semibold">Personal del Estudio</span>
+                        </a>
+
+                        <!-- Botón para Clientes -->
+                        <a href="/login-cliente" class="btn btn-outline-soft py-3 d-flex align-items-center justify-content-center gap-2">
+                            <i class="bi bi-person-badge-fill fs-5"></i>
+                            <span class="fw-semibold">Portal de Clientes</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    </body>
+    </html>

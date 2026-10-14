@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil de Cliente - Piccilli & Asociados</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #3f3d38; --surface: #22262b; --surface-2: #2b3036; --border: #3d434a;
+            --text: #ecebe6; --muted: #c2c2bc; --accent: #A88448; --accent-hover: #BA9455; --accent-text: #1c1a16; --radius: 8px;
+        }
+        body { background-color: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; min-height: 100vh; display: flex; flex-direction: column; margin: 0; }
+        h1, h2, h3, h4, h5, .serif { font-family: 'Cormorant Garamond', serif; }
+        .navbar { background-color: var(--surface); border-bottom: 1px solid var(--border); }
+        .card-custom { background-color: var(--surface); border: 1px solid var(--border); border-radius: 8px; }
+        .btn-dorado-outline {
+            background-color: transparent; border: 1px solid var(--accent); color: var(--accent); font-weight: 600; border-radius: var(--radius); padding: 0.5rem 1rem; transition: all 0.3s ease;
+        }
+        .btn-dorado-outline:hover { background-color: var(--accent); color: var(--accent-text); border-color: var(--accent); }
+        .table-dark-custom { background-color: var(--surface) !important; color: var(--text) !important; margin-bottom: 0; }
+        .table-dark-custom th { background-color: var(--surface-2) !important; border-color: var(--border) !important; color: var(--accent) !important; }
+        .table-dark-custom td { background-color: var(--surface) !important; border-color: var(--border) !important; color: var(--text) !important; }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg px-4 py-3">
+        <div class="container-fluid">
+            <a class="navbar-brand d-flex align-items-center gap-3 text-white" href="/panel-personal">
+                <span class="serif fs-4 fw-bold" style="color: var(--accent);">Piccilli & Asociados <span class="fs-6 text-muted fw-normal">| Panel de Staff</span></span>
+            </a>
+            <a href="/clientes" class="btn btn-outline-light btn-sm"><i class="bi bi-arrow-left me-1"></i> Volver a Clientes</a>
+        </div>
+    </nav>
+
+    <div class="container-fluid px-4 py-5">
+        <div class="row mb-4 align-items-center">
+            <div class="col-lg-7">
+                <h1 class="display-6 fw-bold mb-1" style="color: var(--accent);">Perfil del Cliente: {{ cliente.nombre }} {{ cliente.apellido }}</h1>
+                <p class="text-secondary mb-0">DNI: {{ cliente.dni }} | Acceso a plataforma en modo lectura activo.</p>
+            </div>
+            <div class="col-lg-5 d-flex justify-content-lg-end mt-3 mt-lg-0">
+                <!-- Botón solicitado en el caso de uso -->
+                <a href="/registro-caso/{{ cliente.dni }}" class="btn btn-dorado-outline">
+                    <i class="bi bi-journal-plus me-1"></i> Nuevo caso interno
+                </a>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+                <div class="card card-custom p-4 shadow-sm">
+                    <h3 class="h4 mb-3" style="color: var(--accent);"><i class="bi bi-folder2-open me-2"></i>Casos Activos del Cliente</h3>
+                    <div class="table-responsive">
+                        <table class="table table-dark-custom align-middle">
+                            <thead>
+                                <tr>
+                                    <th>Nro. Legajo</th>
+                                    <th>Carátula y Vencimiento / Plazo</th>
+                                    <th>Juzgado</th>
+                                    <th>Expte. Judicial</th>
+                                    <th>Estado</th>
+                                    <th class="text-center">Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for exp in expedientes %}
+                                <tr>
+                                    <td class="fw-semibold text-warning">{{ exp.nro_legajo }}</td>
+                                    <td>
+                                        <div class="fw-semibold text-white">{{ exp.caratula }}</div>
+                                        <form action="/actualizar-vencimiento/{{ exp._id }}" method="POST" class="d-flex align-items-center gap-1 mt-1">
+                                            <input type="date" name="vencimiento" value="{{ exp.vencimiento }}" class="form-control form-control-sm bg-dark text-white border-secondary" style="font-size: 0.75rem; width: 140px;" required>
+                                            <button type="submit" class="btn btn-sm btn-outline-warning" title="Guardar fecha de vencimiento">
+                                                <i class="bi bi-check-lg"></i> Guardar
+                                            </button>
+                                        </form>
+                                    </td>
+                                    <td>{{ exp.nro_juzgado }}</td>
+                                    <td>{{ exp.nro_expediente_judicial }}</td>
+                                    <td><span class="badge bg-secondary">{{ exp.estado }}</span></td>
+                                    <td class="text-center">
+                                        <form action="/eliminar-expediente/{{ exp._id }}" method="POST" style="display:inline;">
+                                            <button type="submit" class="btn btn-sm btn-outline-danger" title="Eliminar caso" onclick="return confirm('¿Está seguro de eliminar este caso del sistema?');">
+                                                <i class="bi bi-trash"></i>
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
+                                {% else %}
+                                <tr>
+                                    <td colspan="6" class="text-center text-muted py-4">Este cliente aún no tiene casos internos registrados.</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap 5.3 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Pop-up de confirmación solicitado en el caso de uso
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.get('alerta') === 'vencimiento_ok') {
+            alert("Nueva fecha de vencimiento cargada exitosamente");
+        }
+    </script>
+</body>
+</html>

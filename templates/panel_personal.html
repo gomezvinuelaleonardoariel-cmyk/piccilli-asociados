@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Personal - Piccilli & Asociados</title>
+    <!-- Bootstrap 5.3 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #3f3d38;
+            --surface: #22262b;
+            --surface-2: #2b3036;
+            --border: #3d434a;
+            --text: #ecebe6;
+            --muted: #c2c2bc;
+            --accent: #A88448;
+            --accent-hover: #BA9455;
+            --accent-text: #1c1a16;
+            --radius: 8px;
+        }
+        body {
+            background-color: var(--bg);   
+            color: var(--text);
+            font-family: 'Inter', system-ui, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            margin: 0;
+        }
+        h1, h2, h3, h4, h5, .serif {
+            font-family: 'Cormorant Garamond', serif;
+        }
+        .navbar {
+            background-color: var(--surface);
+            border-bottom: 1px solid var(--border);
+        }
+        .card-custom {
+            background-color: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+        }
+        .btn-dorado-outline {
+            background-color: transparent;
+            border: 1px solid var(--accent);
+            color: var(--accent);
+            font-weight: 600;
+            border-radius: var(--radius);
+            padding: 0.5rem 1rem;
+            transition: all 0.3s ease;
+        }
+        .btn-dorado-outline:hover {
+            background-color: var(--accent);
+            color: var(--accent-text);
+            border-color: var(--accent);
+            transform: translateY(-1px);
+        }
+        .form-control, .form-select {
+            background-color: var(--surface-2);
+            border: 1px solid var(--border);
+            color: var(--text);
+        }
+        .form-control:focus, .form-select:focus {
+            background-color: var(--surface-2);
+            border-color: var(--accent);
+            color: var(--text);
+            box-shadow: 0 0 0 0.25rem rgba(184, 152, 90, 0.25);
+        }
+        .form-control::placeholder {
+            color: #8c8c85;
+        }
+        .table-dark-custom {
+            background-color: var(--surface) !important;
+            color: var(--text) !important;
+            margin-bottom: 0;
+        }
+        .table-dark-custom th {
+            background-color: var(--surface-2) !important;
+            border-color: var(--border) !important;
+            color: var(--accent) !important;
+            font-weight: 600;
+        }
+        .table-dark-custom td {
+            background-color: var(--surface) !important;
+            border-color: var(--border) !important;
+            color: var(--text) !important; 
+        }
+        .table-hover tbody tr:hover td {
+            background-color: var(--surface-2) !important;
+            color: var(--text) !important;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Panel Superior -->
+    <nav class="navbar navbar-expand-lg px-4 py-3">
+        <div class="container-fluid">
+            <a class="navbar-brand d-flex align-items-center gap-3 text-white" href="/">
+                <img src="/logo.jpg" alt="Logo" width="40" height="40" class="rounded-circle border border-2" style="border-color: var(--accent) !important; object-fit: cover;">
+                <span class="serif fs-4 fw-bold" style="color: var(--accent);">Piccilli & Asociados <span class="fs-6 text-muted fw-normal">| Panel de Staff</span></span>
+            </a>
+            <a href="/" class="btn btn-outline-light btn-sm"><i class="bi bi-box-arrow-right me-1"></i> Cerrar Sesión</a>
+        </div>
+    </nav>
+
+    <!-- Contenido Principal -->
+    <div class="container-fluid px-4 py-5">
+
+        <!-- Cabecera con Título y Botones Superiores Derecha -->
+        <div class="row mb-4 align-items-center">
+            <div class="col-lg-6">
+                <h1 class="display-6 fw-bold mb-1" style="color: var(--accent);">Gestión de Casos / Expedientes</h1>
+                <p class="text-secondary mb-0">Panel de control interno para la administración de causas del estudio.</p>
+            </div>
+            <div class="col-lg-6 d-flex justify-content-lg-end gap-2 mt-3 mt-lg-0">
+                <a href="/registro-cliente" class="btn btn-dorado-outline"><i class="bi bi-person-plus me-1"></i> Registrar Cliente</a>
+                <a href="/clientes" class="btn btn-dorado-outline"><i class="bi bi-people me-1"></i> Ver Clientes</a>
+            </div>
+        </div>
+
+        <!-- Tabla de Casos Registrados en Ancho Completo (col-12) -->
+        <div class="row">
+            <div class="col-12">
+                <div class="card card-custom p-4 shadow-sm">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h3 class="h4 mb-0" style="color: var(--accent);"><i class="bi bi-folder2-open me-2"></i>Listado de Casos Activos</h3>
+
+                        <!-- Opciones de Ordenamiento -->
+                        <div class="btn-group btn-group-sm" role="group" aria-label="Ordenar casos">
+                            <a href="/panel-personal?orden=desc" class="btn {% if orden_actual == 'desc' %}btn-dorado-outline{% else %}btn-outline-secondary text-light{% endif %}">
+                                <i class="bi bi-sort-down me-1"></i> Más recientes
+                            </a>
+                            <a href="/panel-personal?orden=asc" class="btn {% if orden_actual == 'asc' %}btn-dorado-outline{% else %}btn-outline-secondary text-light{% endif %}">
+                                <i class="bi bi-sort-up me-1"></i> Más antiguos
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- BARRA DE BÚSQUEDA RÁPIDA -->
+                    <form method="GET" action="/panel-personal" class="mb-3 d-flex gap-2">
+                        <div class="input-group">
+                            <span class="input-group-text" style="background-color: var(--surface-2); border-color: var(--border); color: var(--muted);">
+                                <i class="bi bi-search"></i>
+                            </span>
+                            <input type="text" name="q" class="form-control" style="background-color: var(--surface-2); border-color: var(--border); color: var(--text);"
+                                   placeholder="Buscar por N° de legajo, carátula o cliente..." 
+                                   value="{{ busqueda_actual }}">
+                        </div>
+                        {% if busqueda_actual %}
+                            <a href="/panel-personal" class="btn btn-outline-secondary text-light d-flex align-items-center">Limpiar</a>
+                        {% endif %}
+                        <button type="submit" class="btn btn-dorado-outline px-3">Buscar</button>
+                    </form>
+
+                    <div class="table-responsive">
+                        <table class="table table-dark-custom align-middle">
+                            <thead>
+                                <tr>
+                                    <th>Nro. Legajo</th>
+                                    <th>Carátula</th>
+                                    <th>Cliente</th>
+                                    <th>Estado</th>
+                                    <th class="text-center">Notas</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for exp in expedientes %}
+                                <tr>
+                                    <td class="fw-semibold text-warning">{{ exp.nro_legajo or exp.nro_expediente or 'S/N' }}</td>
+                                    <td>
+                                        <div class="fw-semibold text-white">{{ exp.caratula }}</div>
+                                        <div class="small text-light" style="opacity: 0.85;">Vencimiento: {{ exp.vencimiento or 'No especificado' }}</div>
+                                    </td>
+                                    <td>{{ exp.cliente_nombre or exp.cliente }}</td>
+
+                                    <!-- 1° Columna: ESTADO -->
+                                    <td>
+                                        <form action="/actualizar-estado/{{ exp._id }}" method="POST" class="d-flex align-items-center gap-2">
+                                            <select name="estado" class="form-select form-select-sm" style="width: 140px; background-color: var(--surface-2); color: var(--text); border-color: var(--border);">
+                                                <option value="En trámite" {% if exp.estado == 'En trámite' %}selected{% endif %}>En trámite</option>
+                                                <option value="En despacho" {% if exp.estado == 'En despacho' %}selected{% endif %}>En despacho</option>
+                                                <option value="Sentencia" {% if exp.estado == 'Sentencia' %}selected{% endif %}>Sentencia</option>
+                                                <option value="Finalizado" {% if exp.estado == 'Finalizado' %}selected{% endif %}>Finalizado</option>
+                                            </select>
+                                            <button type="submit" class="btn btn-sm btn-outline-secondary text-light" title="Guardar nuevo estado">
+                                                <i class="bi bi-check-lg"></i>
+                                            </button>
+                                        </form>
+                                    </td>
+
+                                    <!-- 2° Columna: NOTAS -->
+                                    <td class="text-center">
+                                        <button class="btn btn-sm btn-outline-warning position-relative" type="button" data-bs-toggle="collapse" data-bs-target="#notas-{{ loop.index }}" aria-expanded="false" title="Ver y agregar notas">
+                                            <i class="bi bi-journal-text"></i>
+                                            {% if exp.movimientos %}
+                                                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="font-size: 0.6rem;">
+                                                    {{ exp.movimientos|length }}
+                                                </span>
+                                            {% endif %}
+                                        </button>
+
+                                        <div class="collapse position-absolute start-50 translate-middle-x mt-2 shadow p-3 rounded text-start" id="notas-{{ loop.index }}" style="background-color: var(--surface-2); border: 1px solid var(--border); width: 300px; z-index: 1000;">
+                                            <div class="d-flex justify-content-between align-items-center mb-2 border-bottom border-secondary pb-1">
+                                                <span class="serif fw-bold text-warning" style="font-size: 0.95rem;"><i class="bi bi-journal-richtext me-1"></i> Historial de Notas</span>
+                                                <button type="button" class="btn-close btn-close-white btn-sm" data-bs-toggle="collapse" data-bs-target="#notas-{{ loop.index }}"></button>
+                                            </div>
+
+                                            {% if exp.movimientos %}
+                                                <ul class="list-unstyled mb-2 overflow-auto" style="max-height: 150px; font-size: 0.8rem;">
+                                                    {% for mov in exp.movimientos %}
+                                                        <li class="border-bottom border-secondary pb-1 mb-1">
+                                                            <span class="text-warning fw-semibold" style="font-size: 0.7rem;">{{ mov.fecha }}</span><br>
+                                                            <span class="text-light">{{ mov.texto }}</span>
+                                                        </li>
+                                                    {% endfor %}
+                                                </ul>
+                                            {% else %}
+                                                <p class="text-light mb-2 text-center" style="font-size: 0.8rem; opacity: 0.8;">No hay notas registradas.</p>
+                                            {% endif %}
+
+                                            <form action="/agregar-movimiento/{{ exp._id }}" method="POST" class="d-flex gap-1 mt-2">
+                                                <input type="text" name="descripcion" class="form-control form-control-sm" placeholder="Escribir nueva nota..." required style="font-size: 0.8rem;">
+                                                <button type="submit" class="btn btn-sm btn-dorado-outline" title="Guardar nota"><i class="bi bi-plus-lg"></i></button>
+                                            </form>
+                                        </div>
+                                    </td>
+                                </tr>
+                                {% else %}
+                                <tr>
+                                    <td colspan="5" class="text-center text-muted py-4">
+                                        <i class="bi bi-inbox fs-2 d-block mb-2"></i>
+                                        No hay casos registrados en este momento.
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Bootstrap 5.3 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

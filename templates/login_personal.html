@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar Sesión - Piccilli & Asociados</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg: #3f3d38;
+            --surface: #22262b;
+            --surface-2: #2b3036;
+            --border: #3d434a;
+            --text: #ecebe6;
+            --muted: #a8a8a0;
+            --accent: #b8985a;
+            --accent-hover: #c9aa6e;
+            --accent-text: #1c1a16;
+            --radius: 8px;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: 'Inter', system-ui, sans-serif;
+            min-height: 100vh;
+            display: grid;
+            place-items: center;
+            padding: 1.5rem 0;
+            margin: 0;
+        }
+
+        .login-card {
+            background-color: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, .35);
+        }
+
+        .brand-title {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-weight: 600;
+            font-size: 2rem;
+            letter-spacing: .02em;
+            color: var(--text);
+        }
+
+        .text-soft { color: var(--muted); }
+
+        .form-label { color: var(--text); font-weight: 500; font-size: .9rem; }
+
+        .form-control,
+        .input-group .btn-toggle {
+            background-color: var(--surface-2);
+            border: 1px solid var(--border);
+            color: var(--text);
+            border-radius: var(--radius);
+        }
+
+        .form-control::placeholder { color: #8a8a83; }
+
+        .form-control:focus {
+            background-color: var(--surface-2);
+            color: var(--text);
+            border-color: var(--accent);
+            box-shadow: 0 0 0 .2rem rgba(184, 152, 90, .25);
+        }
+
+        .input-group .form-control { border-top-right-radius: 0; border-bottom-right-radius: 0; }
+        .input-group .btn-toggle {
+            border-left: 0;
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0;
+            color: var(--muted);
+        }
+        .input-group .btn-toggle:hover { color: var(--text); }
+        .input-group:focus-within .form-control,
+        .input-group:focus-within .btn-toggle { border-color: var(--accent); }
+
+        .btn-accent {
+            background-color: var(--accent);
+            border-color: var(--accent);
+            color: var(--accent-text);
+            font-weight: 600;
+            border-radius: var(--radius);
+            transition: background-color .15s ease, transform .05s ease;
+        }
+        .btn-accent:hover,
+        .btn-accent:focus-visible {
+            background-color: var(--accent-hover);
+            border-color: var(--accent-hover);
+            color: var(--accent-text);
+        }
+        .btn-accent:active { transform: translateY(1px); }
+
+        .link-soft {
+            color: var(--muted);
+            text-decoration: none;
+            font-size: .9rem;
+        }
+        .link-soft:hover { color: var(--accent); text-decoration: underline; }
+    </style>
+</head>
+<body data-bs-theme="dark">
+
+    <main class="container">
+        <div class="row justify-content-center">
+            <div class="col-11 col-sm-10 col-md-8 col-lg-7 col-xl-6">
+                <div class="card login-card">
+                    <div class="card-body p-4 p-md-5">
+
+                        <div class="text-center mb-4">
+                            <img src="/logo.jpg" alt="Logo Piccilli & Asociados"
+                                 class="mb-3 rounded-circle shadow-sm border border-2"
+                                 style="width: 88px; height: 88px; object-fit: cover; border-color: var(--accent) !important;">
+                            <h1 class="brand-title mb-1">Piccilli &amp; Asociados</h1>
+                            <p class="text-soft mb-0">Acceso exclusivo para Profesionales y Staff</p>
+                        </div>
+
+                        {% if error %}
+                            <div class="alert alert-danger py-2 text-center" style="font-size: 0.85rem;" role="alert">
+                                {{ error }}
+                            </div>
+                        {% endif %}
+                        
+                        <!-- Formulario de Login -->
+                        <form action="/login-personal" method="POST">
+                            <div class="mb-3">
+                                <label for="usuario" class="form-label">Usuario / Matrícula Profesional</label>
+                                <input type="text" class="form-control form-control-lg" id="usuario" name="usuario" placeholder="Ej: 12345678" autocomplete="username" autofocus required>
+                            </div>
+
+                            <div class="mb-2">
+                                <label for="password" class="form-label">Contraseña</label>
+                                <div class="input-group input-group-lg">
+                                    <input type="password" class="form-control" id="password" name="password" placeholder="••••••••" autocomplete="current-password" required>
+                                    <button class="btn btn-toggle" type="button" id="togglePassword"
+                                            aria-label="Mostrar contraseña" aria-pressed="false">
+                                        <i class="bi bi-eye" id="toggleIcon"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="text-end mb-4">
+                                <a href="#" class="link-soft">¿Olvidó su contraseña?</a>
+                            </div>
+
+                            <div class="d-grid">
+                                <button type="submit" class="btn btn-lg btn-accent shadow-sm">Ingresar</button>
+                            </div>
+                        </form>
+
+                        <div class="text-center mt-4">
+                            <a href="/" class="link-soft"><i class="bi bi-arrow-left me-1"></i>Volver al inicio</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        const pass = document.getElementById('password');
+        const btn = document.getElementById('togglePassword');
+        const icon = document.getElementById('toggleIcon');
+
+        btn.addEventListener('click', () => {
+            const show = pass.type === 'password';
+            pass.type = show ? 'text' : 'password';
+            icon.className = show ? 'bi bi-eye-slash' : 'bi bi-eye';
+            btn.setAttribute('aria-pressed', String(show));
+            btn.setAttribute('aria-label', show ? 'Ocultar contraseña' : 'Mostrar contraseña');
+        });
+    </script>
+</body>
+</html>
