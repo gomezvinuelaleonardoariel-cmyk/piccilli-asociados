@@ -246,8 +246,29 @@
                         {% if expedientes %}
                             {% for exp in expedientes %}
                             <tr data-status="{% if exp.estado == 'Finalizado' %}done{% else %}active{% endif %}">
-                        <td class="ps-4 fw-semibold">{{ exp.nro_expediente_judicial or 'En trámite' }}</td>
-                        <td>{{ exp.caratula }}</td>
+                                <td class="ps-4 fw-semibold">{{ exp.nro_expediente_judicial or 'En trámite' }}</td>
+                                <td>
+                                    <div class="fw-semibold">{{ exp.caratula }}</div>
+
+                                    <!-- Sección de Movimientos y Notas integrada dentro de cada expediente -->
+                                    <div class="mt-2 pt-2 border-top border-secondary">
+                                        <div class="text-warning small fw-bold mb-1">
+                                            <i class="bi bi-clock-history me-1"></i> Historial de Movimientos y Notas:
+                                        </div>
+                                        {% if exp.movimientos %}
+                                            <ul class="list-unstyled small text-soft mb-0">
+                                                {% for mov in exp.movimientos %}
+                                                    <li class="mb-1 p-2 rounded" style="background-color: var(--surface-2); border: 1px solid var(--border);">
+                                                        <span class="text-warning fw-semibold">{{ mov.fecha }}</span>: 
+                                                        <span class="text-white">{{ mov.texto }}</span>
+                                                    </li>
+                                                {% endfor %}
+                                            </ul>
+                                        {% else %}
+                                            <p class="text-muted small fst-italic mb-0">Aún no hay movimientos registrados para este caso.</p>
+                                        {% endif %}
+                                    </div>
+                                </td>
                                 <td>
                                     {% if exp.estado == 'Finalizado' %}
                                         <span class="status status-done"><i class="bi bi-check-circle"></i>{{ exp.estado }}</span>
