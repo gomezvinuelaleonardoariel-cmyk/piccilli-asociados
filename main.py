@@ -159,6 +159,31 @@ def registro_cliente():
     )
 
 
+# ACTUALIZAR DATOS DE CONTACTO DEL CLIENTE
+@app.route("/actualizar-contacto/<dni>", methods=["POST"])
+def actualizar_contacto(dni):
+    if "user_rol" not in session or session["user_rol"] != "personal":
+        return redirect(url_for("login_personal"))
+
+    celular = request.form.get("celular", "")
+    email = request.form.get("email", "")
+    direccion = request.form.get("direccion", "")
+    emergencia = request.form.get("emergencia", "")
+
+    coleccion_usuarios.update_one(
+        {"dni": dni, "rol": "cliente"},
+        {
+            "$set": {
+                "celular": celular,
+                "email": email,
+                "direccion": direccion,
+                "emergencia": emergencia,
+            }
+        },
+    )
+    return redirect(url_for("perfil_cliente", dni=dni))
+
+
 # VISTA EXCLUSIVA PARA REGISTRAR NUEVO CASO ASOCIADO A UN CLIENTE
 @app.route("/registro-caso/<dni_cliente>", methods=["GET", "POST"])
 def registro_caso(dni_cliente):
