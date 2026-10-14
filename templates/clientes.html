@@ -23,6 +23,20 @@
         .table-dark-custom { background-color: var(--surface) !important; color: var(--text) !important; margin-bottom: 0; }
         .table-dark-custom th { background-color: var(--surface-2) !important; border-color: var(--border) !important; color: var(--accent) !important; }
         .table-dark-custom td { background-color: var(--surface) !important; border-color: var(--border) !important; color: var(--text) !important; }
+        .form-control-custom {
+            background-color: #1a1d20 !important;
+            border-color: var(--border) !important;
+            color: #e2e8f0 !important;
+        }
+        .form-control-custom::placeholder {
+            color: #6c757d !important;
+        }
+        .form-control-custom:focus {
+            background-color: #1a1d20 !important;
+            color: #e2e8f0 !important;
+            border-color: var(--accent) !important;
+            box-shadow: 0 0 0 0.25rem rgba(168, 132, 72, 0.25);
+        }
     </style>
 </head>
 <body>
@@ -52,9 +66,7 @@
                 <span class="input-group-text" style="background-color: var(--surface-2); border-color: var(--border); color: var(--muted);">
                     <i class="bi bi-search"></i>
                 </span>
-                <input type="text" name="q" class="form-control" style="background-color: var(--surface-2); border-color: var(--border); color: var(--text);"
-                       placeholder="Buscar por DNI, Nombre o Apellido..." 
-                       value="{{ busqueda_actual }}">
+                <input type="text" name="q" class="form-control form-control-custom" placeholder="Buscar por DNI, Nombre o Apellido..." value="{{ busqueda_actual }}">
             </div>
             {% if busqueda_actual %}
                 <a href="/clientes" class="btn btn-outline-secondary text-light d-flex align-items-center">Limpiar</a>
